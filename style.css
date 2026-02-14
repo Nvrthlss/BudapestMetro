@@ -208,7 +208,7 @@ button:hover {
     top: 0;
     left: 0;
     width: 100%;
-    height: widht;
+    height: 100%;
     border-collapse: collapse;
     z-index: 2;
     table-layout: fixed;
@@ -216,7 +216,7 @@ button:hover {
 
 .board-table td {
     width: 10%;
-    height: width;
+    height: 10%;
     border: 1px solid #ddd;
     text-align: center;
     vertical-align: middle;
@@ -233,8 +233,8 @@ button:hover {
 /* MEGÁLLÓHELYEK */
 
 .station {
-    max-width: 80%; width: 30px;
-    max-height: 80%; height: 30px;  /*fixed station size overflow on smaller screens*/
+    width: 30px; max-width: 80%;
+    height: 30px; max-height: 80%;  /*fixed station size overflow on smaller screens*/
     background: white;
     border: 3px solid #333;
     border-radius: 50%;
