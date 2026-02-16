@@ -33,6 +33,41 @@ body {
     display: block;
 }
 
+/* NYELVVÁLTÓ */
+
+.lang-switcher {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.lang-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    background: #f0f0f0;
+    color: #555;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+    min-width: auto;
+    width: auto;
+}
+
+.lang-btn:hover {
+    background: #e0e0e0;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.lang-btn.active {
+    background: #4055b1;
+    color: white;
+    border-color: #4055b1;
+}
+
 /* MENÜ */
 
 .menu-content {
@@ -549,5 +584,10 @@ button:hover {
     button {
         width: 100%;
         margin: 5px 0;
+    }
+
+    .lang-btn {
+        width: auto;
+        margin: 0;
     }
 }
