@@ -167,7 +167,7 @@ function renderBoard() {
 
 function startGame() {
     const nameInput = document.querySelector('#player-name');
-    gameState.playerName = nameInput.value.trim() || 'Játékos';
+    gameState.playerName = nameInput.value.trim() || t('playerDefault');
     
     gameState.startTime = Date.now();
     gameState.roundOrder = shuffleArray([0, 1, 2, 3]);
@@ -227,7 +227,7 @@ function updateMetroIndicator() {
     const line = getCurrentLine();
     const indicator = document.querySelector('#metro-indicator');
     
-    indicator.textContent = `${line.name} Metróvonal`;
+    indicator.textContent = t('metroLine', { line: line.name });
     indicator.className = 'metro-indicator';
     indicator.classList.add(`metro-${line.name}`);
 }
@@ -291,7 +291,7 @@ function showNoValidMovesMessage() {
     
     const message = document.createElement('div');
     message.className = 'no-moves-warning';
-    message.innerHTML = `Nincs érvényes lépés!<br>Húzz új kártyát.`;
+    message.innerHTML = t('noValidMoves');
     
     cardDisplay.appendChild(message);
     
@@ -530,7 +530,7 @@ function showEndpointMessage(count) {
     
     const message = document.createElement('div');
     message.className = 'endpoint-message';
-    message.innerHTML = 'Válaszd ki a kiindulási végpontot!';
+    message.innerHTML = t('chooseEndpoint');
     
     cardDisplay.appendChild(message);
 }
@@ -722,7 +722,7 @@ function endGame() {
         time: elapsedTime
     });
         
-    const confirmed = confirm(`Játék vége!\n\nVégső pontszám: ${totalScore}\nIdő: ${formatTime(elapsedTime)}\n\nÚj játék?`);
+    const confirmed = confirm(t('gameOver', { score: totalScore, time: formatTime(elapsedTime) }));
     if (confirmed) {
         showScreen('menu-screen');
     } else {
@@ -746,7 +746,7 @@ function loadLeaderboard() {
     tbody.innerHTML = '';
     
     if (results.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #999;">Még nincsenek eredmények</td></tr>';
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: #999;">${t('noResults')}</td></tr>`;
     } else {
         results.forEach((result, idx) => {
             const row = document.createElement('tr');
@@ -764,7 +764,7 @@ function loadLeaderboard() {
 // MENÜ
 
 function backToMenu() {
-    const confirmed = confirm('Biztosan visszamész a menübe? A játék elvész!');
+    const confirmed = confirm(t('confirmBack'));
     if (confirmed) {
         stopTimer();
         showScreen('menu-screen');
@@ -775,7 +775,10 @@ function backToMenu() {
 
 window.addEventListener('load', () => {
     document.querySelector('#start-btn').addEventListener('click', startGame);
-    document.querySelector('#rules-btn').addEventListener('click', () => showScreen('rules-screen'));
+    document.querySelector('#rules-btn').addEventListener('click', () => {
+        renderRules();
+        showScreen('rules-screen');
+    });
     document.querySelector('#leaderboard-btn').addEventListener('click', () => {
         loadLeaderboard();
         showScreen('leaderboard-screen');

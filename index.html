@@ -4,94 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Budapest Metrói</title>
+    <link rel="icon" href="bpmetro_favicon.png" type="image/png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <div id="menu-screen" class="screen active">
             <div class="menu-content">
-                <h1>Budapest Metrói</h1>
-                <div class="input-group">
-                    <label for="player-name">Játékos neve:</label>
-                    <input type="text" id="player-name" placeholder="Add meg a neved" value="Játékos">
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang="hu" onclick="setLanguage('hu')">🇭🇺 HU</button>
+                    <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">🇬🇧 EN</button>
                 </div>
-                <button class="btn-primary" id="start-btn">Start</button>
-                <button class="btn-secondary" id="rules-btn">Játékszabály</button>
-                <button class="btn-secondary" id="leaderboard-btn">Eredmények</button>
+                <h1 data-i18n="title">Budapest Metrói</h1>
+                <div class="input-group">
+                    <label data-i18n="playerLabel" for="player-name">Játékos neve:</label>
+                    <input type="text" id="player-name" data-i18n-placeholder="playerPlaceholder" placeholder="Add meg a neved" value="Játékos">
+                </div>
+                <button class="btn-primary" id="start-btn" data-i18n="start">Start</button>
+                <button class="btn-secondary" id="rules-btn" data-i18n="rules">Játékszabály</button>
+                <button class="btn-secondary" id="leaderboard-btn" data-i18n="results">Eredmények</button>
             </div>
         </div>
 
         <div id="rules-screen" class="screen">
-            <h1>Játékszabály</h1>
-            
-            <h2>Cél</h2>
-            <p>Építsd fel Budapest 4 metróvonalát (M1-sárga, M2-piros, M3-kék, M4-zöld) úgy, hogy minél több pontot szerezz!</p>
-            
-            <h2>Játékmenet</h2>
-            <p>A játék 4 fordulóból áll, mindegyikben egy metróvonalat építesz. Minden körben:</p>
-            <ul>
-                <li>Húzz egy kártyát (A, B, C, D vagy Joker)</li>
-                <li>Kattints egy megállóhelyre, ahova szakaszt szeretnél építeni</li>
-                <li>A program automatikusan berajzolja, ha szabályos</li>
-            </ul>
-            
-            <h2>Építési szabályok</h2>
-            <ul>
-                <li>Az első szakasz a kiinduló megállóhelyről indul (színes kör)</li>
-                <li>Ezután a metróvonal valamelyik végéről építhetsz tovább</li>
-                <li>Szakaszok vízszintesen, függőlegesen vagy átlósan (45°) haladnak</li>
-                <li>Nem keresztezhetsz másik szakaszt</li>
-                <li>Nem mehetsz át más megállóhelyen</li>
-                <li>A Deák tér (?) Joker, bármilyen kártyával odaépíthetsz</li>
-            </ul>
-            
-            <h2>Pontozás</h2>
-            <p>Minden forduló végén:</p>
-            <ul>
-                <li><strong>PK</strong> = Érintett kerületek száma</li>
-                <li><strong>PM</strong> = Legtöbb megállóhely egy kerületben</li>
-                <li><strong>PD</strong> = Duna átkelések száma</li>
-                <li><strong>Fordulópont</strong> = (PK × PM) + PD</li>
-            </ul>
-            <p>A végső pontszám a 4 forduló pontjainak összege.</p>
-            
-            <h2>Irányítás</h2>
-            <p><strong>Kattints</strong> egy megállóhelyre, ahova szakaszt szeretnél építeni. Ha szabályos, automatikusan berajzolódik.</p>
-            <p><strong>Új kártya</strong> gombbal húzhatsz következő kártyát.</p>
-            
-            <button class="btn-secondary" id="back-from-rules-btn">Vissza</button>
+            <h1 data-i18n="rulesTitle">Játékszabály</h1>
+            <div id="rules-content">
+            </div>
+            <button class="btn-secondary" id="back-from-rules-btn" data-i18n="back">Vissza</button>
         </div>
 
         <div id="leaderboard-screen" class="screen">
-            <h1>Eredmények</h1>
+            <h1 data-i18n="results">Eredmények</h1>
             <div class="leaderboard">
                 <table>
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Név</th>
-                            <th>Pont</th>
-                            <th>Idő</th>
+                            <th data-i18n="rankHeader">#</th>
+                            <th data-i18n="nameHeader">Név</th>
+                            <th data-i18n="scoreHeader">Pont</th>
+                            <th data-i18n="timeHeader">Idő</th>
                         </tr>
                     </thead>
                     <tbody id="leaderboard-body">
                         <tr>
-                            <td colspan="4" style="text-align: center; color: #999;">Még nincsenek eredmények</td>
+                            <td colspan="4" style="text-align: center; color: #999;" data-i18n="noResults">Még nincsenek eredmények</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <button class="btn-secondary" id="back-from-leaderboard-btn">Vissza</button>
+            <button class="btn-secondary" id="back-from-leaderboard-btn" data-i18n="back">Vissza</button>
         </div>
 
         <div id="game-screen" class="screen">
             <div class="game-header">
                 <div class="game-info">
-                    <div class="info-item">Név: <span id="current-player">Játékos</span></div>
-                    <div class="info-item">Idő <span id="timer">0:00</span></div>
-                    <div class="info-item">Pont: <span id="total-score">0</span></div>
+                    <div class="info-item"><span data-i18n="nameLabel">Név:</span> <span id="current-player">Játékos</span></div>
+                    <div class="info-item"><span data-i18n="timeLabel">Idő</span> <span id="timer">0:00</span></div>
+                    <div class="info-item"><span data-i18n="scoreLabel">Pont:</span> <span id="total-score">0</span></div>
                 </div>
-                <button class="btn-secondary" id="back-btn">Vissza a menübe</button>
+                <button class="btn-secondary" id="back-btn" data-i18n="backToMenu">Vissza a menübe</button>
             </div>
 
             <div class="game-content">
@@ -106,33 +77,33 @@
                     <div class="metro-indicator" id="metro-indicator">M1 Metróvonal</div>
                     
                     <div class="card-display">
-                        <p>Kártya: <span id="card-count">0/8</span></p>
+                        <p><span data-i18n="card">Kártya:</span> <span id="card-count">0/8</span></p>
                         <div class="current-card" id="current-card">-</div>
-                        <button class="btn-primary" id="draw-card-btn">Új kártya</button>
+                        <button class="btn-primary" id="draw-card-btn" data-i18n="drawCard">Új kártya</button>
                     </div>
 
                     <div class="scoring">
-                        <h3>Aktuális forduló</h3>
+                        <h3 data-i18n="currentRound">Aktuális forduló</h3>
                         <div class="score-item">
-                            <span>Kerületek (PK)</span>
+                            <span data-i18n="districts">Kerületek (PK)</span>
                             <span id="score-pk">0</span>
                         </div>
                         <div class="score-item">
-                            <span>Max/kerület (PM)</span>
+                            <span data-i18n="maxPerDistrict">Max/kerület (PM)</span>
                             <span id="score-pm">0</span>
                         </div>
                         <div class="score-item">
-                            <span>Duna (PD)</span>
+                            <span data-i18n="danube">Duna (PD)</span>
                             <span id="score-pd">0</span>
                         </div>
                         <div class="score-item">
-                            <span>Összesen (FP)</span>
+                            <span data-i18n="total">Összesen (FP)</span>
                             <span id="score-fp">0</span>
                         </div>
                     </div>
 
                     <div class="round-scores">
-                        <h3>Fordulók</h3>
+                        <h3 data-i18n="rounds">Fordulók</h3>
                         <div class="score-item">
                             <span class="line-label line-M1">M1</span>
                             <span id="round-M1">-</span>
@@ -154,6 +125,7 @@
             </div>
         </div>
     </div>
+    <script src="translations.js"></script>
     <script src="index.js"></script>
 </body>
 </html>
